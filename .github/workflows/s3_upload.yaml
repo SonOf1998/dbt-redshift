@@ -24,7 +24,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: eu-central-1
-          role-to-assume: arn:aws:iam::102606406933:policy/github_action_policy
+          role-to-assume: arn:aws:iam::102606406933:role/github-action-role
 
       - name: Move data
         run: |
