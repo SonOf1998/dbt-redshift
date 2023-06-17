@@ -1,4 +1,7 @@
 An attempt to use the following together:  
+* GitHub Actions (OIDC and IAM roles)
+* Terraform for infra management
+* AWS CLI
 * Amazon S3
 * AWS Glue
 * Amazon Redshift serverless
