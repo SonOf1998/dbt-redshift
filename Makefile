@@ -9,14 +9,6 @@ delete-venv:
 	echo "Deleting virtual environment $(VENV_NAME)"
 	rm -rf ./$(VENV_NAME)
 
-activate-venv:
-	echo "Activating virtual environment $(VENV_NAME)"
-	source ./$(VENV_NAME)/bin/activate
-
-deactivate-venv:
-	echo "Deactivating virtual environment $(VENV_NAME)"
-	deactivate
-
 install-packages:
 	echo "Installing packages from requirements.txt"
 	pip install -r requirements.txt --extra-index-url https://pypi.python.org/simple
