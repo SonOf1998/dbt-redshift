@@ -46,20 +46,13 @@ jobs:
           aws-region: eu-central-1
           aws-region: ${{ github.event.inputs.aws_region }}
           role-to-assume: ${{ github.event.inputs.aws_role_arn }}
-      
-      - name: Replace secret placeholders in tfvars
-        run: |
-          sed -i 's/REDSHIFT_ADMIN_USERNAME/${{ secrets.REDSHIFT_ADMIN_USERNAME }}/g' infra/vars/$TFVARS_FILE
-          sed -i 's/REDSHIFT_ADMIN_PASSWORD/${{ secrets.REDSHIFT_ADMIN_PASSWORD }}/g' infra/vars/$TFVARS_FILE
-        env:
-          TFVARS_FILE: ${{ github.event.inputs.tfvars_file }}
 
       - name: Run Terraform
         run: |
           cd infra
           terraform init
           terraform validate
-          terraform destroy -auto-approve -var-file=$TFVARS_FILE
+          terraform destroy -auto-approve -var-file=$TFVARS_FILE -var="redshift_admin_username=${{ secrets.REDSHIFT_ADMIN_USERNAME }}" -var="redshift_admin_password=${{ secrets.REDSHIFT_ADMIN_PASSWORD }}"
         env:
           TFVARS_FILE: ${{ github.event.inputs.tfvars_file }}
 
