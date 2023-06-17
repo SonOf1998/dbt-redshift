@@ -6,6 +6,7 @@ on:
 jobs:
   upload_s3_data:
     runs-on: ubuntu-latest
+    environment: development
 
     permissions:
       id-token: write
