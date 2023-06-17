@@ -8,7 +8,7 @@ terraform {
 
   cloud {
     organization = "makis"
-    token = "asd"
+    token = "TF_SECRET_TOKEN"
 
     workspaces {
       name       = "dbt-redshift"

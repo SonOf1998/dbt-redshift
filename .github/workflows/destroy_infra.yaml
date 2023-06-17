@@ -35,11 +35,10 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
-        
+
       - name: Integrate Terraform cloud
         run: |
-          touch ./infra/.terraformrc
-          echo 'credentials "app.terraform.io" { token = "${{ secrets.TF_SECRET_TOKEN }}" }' > ./infra/.terraformrc
+          sed -i "s/TF_SECRET_TOKEN/${{ secrets.TF_SECRET_TOKEN }}/g" infra/main.tf
 
       - name: Install AWS CLI
         run: |
