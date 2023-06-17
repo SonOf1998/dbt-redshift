@@ -2,6 +2,19 @@ name: Destroy infrastructure in AWS
 
 on:
   workflow_dispatch:
+    inputs:
+      aws_region:
+        description: "AWS Region"
+        required: true
+        default: eu-central-1
+      aws_role_arn:
+        description: "IAM Role ARN"
+        required: true
+        default: arn:aws:iam::102606406933:role/github-action-role
+      tfvars_file:
+        description: "tfvar file under infra/vars"
+        required: true
+        default: eu-central-1-test.tfvars
 
 jobs:
   destroy-infra:
@@ -31,12 +44,22 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2.2.0
         with:
           aws-region: eu-central-1
-          role-to-assume: arn:aws:iam::102606406933:role/github-action-role
+          aws-region: ${{ github.event.inputs.aws_region }}
+          role-to-assume: ${{ github.event.inputs.aws_role_arn }}
+      
+      - name: Replace secret placeholders in tfvars
+        run: |
+          sed -i 's/REDSHIFT_ADMIN_USERNAME/${{ secrets.REDSHIFT_ADMIN_USERNAME }}/g' infra/vars/$TFVARS_FILE
+          sed -i 's/REDSHIFT_ADMIN_PASSWORD/${{ secrets.REDSHIFT_ADMIN_PASSWORD }}/g' infra/vars/$TFVARS_FILE
+        env:
+          TFVARS_FILE: ${{ github.event.inputs.tfvars_file }}
 
       - name: Run Terraform
         run: |
           cd infra
           terraform init
           terraform validate
-          terraform destroy -auto-approve
+          terraform destroy -auto-approve -var-file=$TFVARS_FILE
+        env:
+          TFVARS_FILE: ${{ github.event.inputs.tfvars_file }}
 
