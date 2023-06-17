@@ -51,7 +51,7 @@ jobs:
           cd infra
           terraform init
           terraform validate
-          terraform destroy -auto-approve -var-file=$TFVARS_FILE -var="redshift_admin_username=${{ secrets.REDSHIFT_ADMIN_USERNAME }}" -var="redshift_admin_password=${{ secrets.REDSHIFT_ADMIN_PASSWORD }}"
+          terraform destroy -auto-approve -var-file=vars/$TFVARS_FILE -var="redshift_admin_username=${{ secrets.REDSHIFT_ADMIN_USERNAME }}" -var="redshift_admin_password=${{ secrets.REDSHIFT_ADMIN_PASSWORD }}"
         env:
           TFVARS_FILE: ${{ github.event.inputs.tfvars_file }}
 
