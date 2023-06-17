@@ -58,7 +58,7 @@ jobs:
           cd infra
           terraform init
           terraform validate
-          terraform apply -auto-approve -var-file=$TFVARS_FILE
+          terraform apply -auto-approve -var-file=vars/$TFVARS_FILE
         env:
           TFVARS_FILE: ${{ github.event.inputs.tfvars_file }}
 
