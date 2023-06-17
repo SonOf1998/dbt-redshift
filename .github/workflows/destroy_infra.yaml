@@ -43,7 +43,6 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2.2.0
         with:
-          aws-region: eu-central-1
           aws-region: ${{ github.event.inputs.aws_region }}
           role-to-assume: ${{ github.event.inputs.aws_role_arn }}
 
