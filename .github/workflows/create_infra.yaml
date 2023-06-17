@@ -1,10 +1,10 @@
-name: Upload TICKIT data to S3
+name: Create or update infrastructure in AWS
 
 on:
   workflow_dispatch:
 
 jobs:
-  upload_s3_data:
+  create-infra:
     runs-on: ubuntu-latest
 
     permissions:
@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: '3.10' 
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
       - name: Install AWS CLI
         run: |
           pip install awscli
@@ -30,11 +33,11 @@ jobs:
           aws-region: eu-central-1
           role-to-assume: arn:aws:iam::102606406933:role/github-action-role
 
-      - name: Move data
+      - name: Run Terraform
         run: |
-          sudo apt-get install -y unzip
-          cd data
-          unzip tickit_data.zip
-          rm tickit_data.zip
-          aws s3 cp . s3://mkis-redshift-app-eu-central-1/raw_data --recursive
+          cd infra
+          terraform init
+          terraform validate
+          terraform apply -auto-approve
+
 
