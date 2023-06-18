@@ -22,10 +22,4 @@ resource "aws_redshiftserverless_namespace" "namespace" {
   admin_username      = var.redshift_admin_username
   admin_user_password = var.redshift_admin_password
   iam_roles           = [aws_iam_role.redshift-role.arn]
-
-  lifecycle {
-    ignore_changes = [
-      iam_roles
-    ]
-  }
 }
