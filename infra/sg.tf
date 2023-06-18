@@ -11,7 +11,7 @@ resource "aws_security_group" "security-group-redshift" {
     from_port   = 5439
     to_port     = 5439
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] // update this to secure the connection to Redshift
+    cidr_blocks = ["52.45.144.63/32", "54.81.134.249/32", "54.81.134.249/32"]
   }
   
   tags = {
