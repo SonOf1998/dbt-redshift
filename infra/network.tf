@@ -44,19 +44,19 @@ resource "aws_internet_gateway" "redshift-vpc-igw" {
 }
 
 # extending default route table
-resource "aws_route" "ingress_route" {
+resource "aws_route" "ingress_route1" {
   route_table_id = aws_vpc.vpc-redshift.default_route_table_id
   destination_cidr_block = var.dbt_ip_addresses[0]
   gateway_id = aws_internet_gateway.redshift-vpc-igw.id
 }
 
-resource "aws_route" "ingress_route" {
+resource "aws_route" "ingress_route2" {
   route_table_id = aws_vpc.vpc-redshift.default_route_table_id
   destination_cidr_block = var.dbt_ip_addresses[1]
   gateway_id = aws_internet_gateway.redshift-vpc-igw.id
 }
 
-resource "aws_route" "ingress_route" {
+resource "aws_route" "ingress_route3" {
   route_table_id = aws_vpc.vpc-redshift.default_route_table_id
   destination_cidr_block = var.dbt_ip_addresses[2]
   gateway_id = aws_internet_gateway.redshift-vpc-igw.id
