@@ -1,4 +1,5 @@
 tickit_redshift:
+  target: prod
   outputs:
     prod:
       type: redshift
