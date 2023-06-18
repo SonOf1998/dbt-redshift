@@ -1,5 +1,6 @@
 region                       = "eu-central-1"
 tickit_bucket_name           = "mkis-redshift-app-eu-central-1"
+dbt_ip_addresses             = ["52.45.144.63/32", "54.81.134.249/32", "52.22.161.231/32"]
 redshift_vpc_cidr            = "10.1.0.0/16"
 redshift_subnet_1_cidr       = "10.1.1.0/24"
 redshift_subnet_2_cidr       = "10.1.2.0/24"
@@ -8,4 +9,4 @@ redshift_namespace_name      = "redshift-namespace"
 redshift_database_name       = "mkis_test"
 redshift_workgroup_name      = "redshift-workgroup"
 redshift_base_capacity       = 8
-redshift_publicly_accessible = false
+redshift_publicly_accessible = true

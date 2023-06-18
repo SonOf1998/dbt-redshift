@@ -8,6 +8,11 @@ variable "tickit_bucket_name" {
   type          = string
 }
 
+variable "dbt_ip_addresses" {
+  description   = "IP Addresses used by the dbt cloud"
+  type          = list
+}
+
 variable "redshift_vpc_cidr" {
   type          = string
   description   = "VPC IPv4 CIDR"

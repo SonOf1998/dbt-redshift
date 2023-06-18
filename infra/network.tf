@@ -43,11 +43,21 @@ resource "aws_internet_gateway" "redshift-vpc-igw" {
   }
 }
 
-# route table
-resource "aws_route_table" "redshift-vpc-route-table" {
-    vpc_id = aws_vpc.vpc-redshift.id
-    route {
-        cidr_block = "0.0.0.0/0"
-        gateway_id = aws_internet_gateway.redshift-vpc-igw.id
-    }
+# extending default route table
+resource "aws_route" "ingress_route" {
+  route_table_id = aws_vpc.vpc-redshift.default_route_table_id
+  destination_cidr_block = var.dbt_ip_addresses[0]
+  gateway_id = aws_internet_gateway.redshift-vpc-igw.id
+}
+
+resource "aws_route" "ingress_route" {
+  route_table_id = aws_vpc.vpc-redshift.default_route_table_id
+  destination_cidr_block = var.dbt_ip_addresses[1]
+  gateway_id = aws_internet_gateway.redshift-vpc-igw.id
+}
+
+resource "aws_route" "ingress_route" {
+  route_table_id = aws_vpc.vpc-redshift.default_route_table_id
+  destination_cidr_block = var.dbt_ip_addresses[2]
+  gateway_id = aws_internet_gateway.redshift-vpc-igw.id
 }
