@@ -1,0 +1,17 @@
+tickit_redshift:
+  outputs:
+    prod:
+      type: redshift
+      host: mkis-wg.102606406933.eu-central-1.redshift-serverless.amazonaws.com
+      user: "{{ env_var('REDSHIFT_ADMIN_USERNAME') }}"
+      password: "{{ env_var('REDSHIFT_ADMIN_PASSWORD') }}"
+      port: 5439
+      dbname: mkis_test
+      schema: tickit
+      threads: 1
+      connect_timeout: None # optional, number of seconds before connection times out 
+      # search_path: public # optional, not recommended
+      sslmode: prefer # optional, set the sslmode to connect to the database. Default prefer, which will use 'verify-ca' to connect.
+      ra3_node: true # enables cross-database sources
+      autocommit: true # enables autocommit after each statement
+      region: eu-central-1

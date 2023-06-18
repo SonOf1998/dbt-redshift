@@ -1,0 +1,35 @@
+name: Running dbt
+
+on:
+  workflow_dispatch:
+
+env:
+DBT_PROFILES_DIR: ./
+REDSHIFT_ADMIN_USERNAME: ${{ secrets.REDSHIFT_ADMIN_USERNAME }}
+REDSHIFT_ADMIN_PASSWORD: ${{ secrets.REDSHIFT_ADMIN_PASSWORD }}
+
+jobs:
+  running-dbt:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+
+      - name: Install dbt and dependencies
+        run: |
+          pip install dbt-core
+          dbt dep
+
+      - name: Run dbt
+        run: dbt run
+
