@@ -59,7 +59,7 @@ jobs:
           terraform validate
 
       - name: Apply Terraform
-        if: ${{ github.event.inputs.operation == "apply" }}
+        if: ${{ github.event.inputs.operation == 'apply' }}
         run: |
           cd infra
           terraform apply -auto-approve -var-file=vars/$TFVARS_FILE -var="redshift_admin_username=${{ secrets.REDSHIFT_ADMIN_USERNAME }}" -var="redshift_admin_password=${{ secrets.REDSHIFT_ADMIN_PASSWORD }}"
@@ -67,7 +67,7 @@ jobs:
           TFVARS_FILE: ${{ github.event.inputs.tfvars_file }}
 
       - name: Destroy Terraform
-        if: ${{ github.event.inputs.operation == "destroy" }}
+        if: ${{ github.event.inputs.operation == 'destroy' }}
         run: |
           cd infra
           terraform destroy -auto-approve -var-file=vars/$TFVARS_FILE -var="redshift_admin_username=${{ secrets.REDSHIFT_ADMIN_USERNAME }}" -var="redshift_admin_password=${{ secrets.REDSHIFT_ADMIN_PASSWORD }}"
