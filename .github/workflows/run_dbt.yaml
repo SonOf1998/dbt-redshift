@@ -24,6 +24,7 @@ jobs:
       - name: Install dbt and dependencies
         run: |
           pip install dbt-core
+          pip install dbt-redshift
           dbt deps
 
       - name: Run dbt
