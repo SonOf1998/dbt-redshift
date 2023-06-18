@@ -33,3 +33,21 @@ resource "aws_subnet" "redshift-subnet-az3" {
   cidr_block        = var.redshift_subnet_3_cidr
   availability_zone = data.aws_availability_zones.AZs.names[2]
 }
+
+# igw
+resource "aws_internet_gateway" "redshift-vpc-igw" {
+  vpc_id = aws_vpc.vpc-redshift.id
+
+  tags = {
+    Name = "Redshift-IGW"
+  }
+}
+
+# route table
+resource "aws_route_table" "redshift-vpc-route-table" {
+    vpc_id = aws_vpc.vpc-redshift.id
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = aws_internet_gateway.redshift-vpc-igw.id
+    }
+}
