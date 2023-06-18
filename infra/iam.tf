@@ -19,7 +19,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "redshift-s3-full-access-policy" {
-  name = "kopicloud-redshift-role-s3-policy"
+  name = "redshift-role-policy"
   role = aws_iam_role.redshift-role.id
 
 policy = <<EOF
