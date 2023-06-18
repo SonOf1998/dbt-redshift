@@ -1,6 +1,6 @@
 # workgroup
 resource "aws_redshiftserverless_workgroup" "workgroup" {
-  # depends_on = [aws_redshiftserverless_namespace.namespace]
+  depends_on = [aws_redshiftserverless_namespace.namespace]
 
   namespace_name = aws_redshiftserverless_namespace.namespace.id
   workgroup_name = var.redshift_workgroup_name
