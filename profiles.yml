@@ -3,7 +3,7 @@ tickit_redshift:
   outputs:
     prod:
       type: redshift
-      host: mkis-wg.102606406933.eu-central-1.redshift-serverless.amazonaws.com
+      host: redshift-workgroup.102606406933.eu-central-1.redshift-serverless.amazonaws.com
       user: "{{ env_var('REDSHIFT_ADMIN_USERNAME') }}"
       password: "{{ env_var('REDSHIFT_ADMIN_PASSWORD') }}"
       port: 5439
