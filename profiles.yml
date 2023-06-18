@@ -10,7 +10,6 @@ tickit_redshift:
       dbname: mkis_test
       schema: tickit
       threads: 1
-      connect_timeout: None # optional, number of seconds before connection times out 
       # search_path: public # optional, not recommended
       sslmode: prefer # optional, set the sslmode to connect to the database. Default prefer, which will use 'verify-ca' to connect.
       ra3_node: true # enables cross-database sources
