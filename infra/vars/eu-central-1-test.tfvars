@@ -8,4 +8,4 @@ redshift_namespace_name      = "mkis-ns"
 redshift_database_name       = "mkis_test"
 redshift_workgroup_name      = "mkis-wg"
 redshift_base_capacity       = 8
-redshift_publicly_accessible = false
+redshift_publicly_accessible = true
