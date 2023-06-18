@@ -1,4 +1,4 @@
-name: Destroy infrastructure in AWS
+name: Modifying infrastructure in AWS
 
 on:
   workflow_dispatch:
@@ -15,9 +15,15 @@ on:
         description: "tfvar file under infra/vars"
         required: true
         default: eu-central-1-test.tfvars
-
+      operation:
+        type: choice
+        default: apply
+        options:
+          - apply
+          - destroy
+      
 jobs:
-  destroy-infra:
+  modifying-infra:
     runs-on: ubuntu-latest
 
     permissions:
@@ -36,10 +42,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
-      - name: Integrate Terraform cloud
-        run: |
-          sed -i "s/TF_SECRET_TOKEN/${{ secrets.TF_SECRET_TOKEN }}/g" infra/main.tf
-
       - name: Install AWS CLI
         run: |
           pip install awscli
@@ -50,12 +52,26 @@ jobs:
           aws-region: ${{ github.event.inputs.aws_region }}
           role-to-assume: ${{ github.event.inputs.aws_role_arn }}
 
-      - name: Run Terraform
+      - name: Init & Validate Terraform
         run: |
           cd infra
           terraform init
           terraform validate
+
+      - name: Apply Terraform
+        if: ${{ github.event.inputs.operation == "apply" }}
+        run: |
+          cd infra
+          terraform apply -auto-approve -var-file=vars/$TFVARS_FILE -var="redshift_admin_username=${{ secrets.REDSHIFT_ADMIN_USERNAME }}" -var="redshift_admin_password=${{ secrets.REDSHIFT_ADMIN_PASSWORD }}"
+        env:
+          TFVARS_FILE: ${{ github.event.inputs.tfvars_file }}
+
+      - name: Destroy Terraform
+        if: ${{ github.event.inputs.operation == "destroy" }}
+        run: |
+          cd infra
           terraform destroy -auto-approve -var-file=vars/$TFVARS_FILE -var="redshift_admin_username=${{ secrets.REDSHIFT_ADMIN_USERNAME }}" -var="redshift_admin_password=${{ secrets.REDSHIFT_ADMIN_PASSWORD }}"
         env:
           TFVARS_FILE: ${{ github.event.inputs.tfvars_file }}
+
 
