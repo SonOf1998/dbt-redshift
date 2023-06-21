@@ -35,5 +35,11 @@ resource "aws_glue_connection" "glue_redshift_connection" {
     PASSWORD            = var.redshift_admin_password
   }
 
-  name = "example"
+  physical_connection_requirements {
+    availability_zone      = aws_subnet.redshift-subnet-az4.availability_zone
+    security_group_id_list = [aws_security_group.security-group-redshift.id]
+    subnet_id              = aws_subnet.redshift-subnet-az4.id
+  }
+
+  name = "glue-redshift-connection"
 }

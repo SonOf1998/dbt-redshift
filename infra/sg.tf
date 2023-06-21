@@ -11,7 +11,7 @@ resource "aws_security_group" "security-group-redshift" {
     from_port   = 5439
     to_port     = 5439
     protocol    = "tcp"
-    cidr_blocks = var.dbt_ip_addresses
+    cidr_blocks = ["0.0.0.0/0"]
   }
   
   tags = {

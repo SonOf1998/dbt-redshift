@@ -5,6 +5,7 @@ redshift_vpc_cidr            = "10.1.0.0/16"
 redshift_subnet_1_cidr       = "10.1.1.0/24"
 redshift_subnet_2_cidr       = "10.1.2.0/24"
 redshift_subnet_3_cidr       = "10.1.3.0/24"
+redshift_subnet_4_cidr       = "10.1.4.0/24"            # used for glue job
 redshift_namespace_name      = "redshift-namespace"
 redshift_database_name       = "mkis_test"
 redshift_workgroup_name      = "redshift-workgroup"
