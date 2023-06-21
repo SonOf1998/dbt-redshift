@@ -33,6 +33,11 @@ variable "redshift_subnet_3_cidr" {
   description   = "IPv4 CIDR for Redshift subnet 3"
 }
 
+variable "redshift_subnet_4_cidr" {
+  type          = string
+  description   = "IPv4 CIDR for Redshift subnet 4"
+}
+
 variable "redshift_namespace_name" {
   type        = string
   description = "Redshift Serverless Namespace Name"
