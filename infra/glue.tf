@@ -1,5 +1,5 @@
 # classifier
-resource "aws_glue_classifier" "csv-with-header-classifier" {
+resource "aws_glue_classifier" "csv_with_header_classifier" {
   name = "csv-with-header-classifier"
 
   csv_classifier {
@@ -19,7 +19,7 @@ resource "aws_glue_crawler" "csv-crawler" {
   database_name = aws_glue_catalog_database.aws_glue_catalog_database.name
   name          = "csv-crawler"
   role          = aws_iam_role.glue_role.arn
-  classifiers   = [aws_glue_classifier.csv-with-header-classifier]
+  classifiers   = [aws_glue_classifier.csv_with_header_classifier.name]
 
   s3_target {
     path = "s3://${var.tickit_bucket_name}"
