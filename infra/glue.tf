@@ -19,7 +19,7 @@ resource "aws_glue_crawler" "csv-crawler" {
   database_name = aws_glue_catalog_database.aws_glue_catalog_database.name
   name          = "csv-crawler"
   role          = aws_iam_role.glue_role.arn
-  classifiers   = [aws_glue_classifier.csv-with-header-classifier.arn]
+  classifiers   = [aws_glue_classifier.csv-with-header-classifier]
 
   s3_target {
     path = "s3://${var.tickit_bucket_name}"

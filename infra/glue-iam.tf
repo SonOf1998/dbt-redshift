@@ -25,13 +25,13 @@ data "aws_iam_policy" "aws_glue_service_role_policy" {
 
 # Recommended policy to attach
 resource "aws_iam_role_policy_attachment" "glue_service" {
-    role = aws_iam_role.glue-role.id
+    role = aws_iam_role.glue_role.id
     policy_arn = data.aws_iam_policy.aws_glue_service_role_policy.arn
 }
 
 resource "aws_iam_role_policy" "glue_s3_policy" {
   name = "glue-s3-policy"
-  role = aws_iam_role.glue-role.id
+  role = aws_iam_role.glue_role.id
 
   policy = jsonencode(
   {
