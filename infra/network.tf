@@ -49,7 +49,7 @@ resource "aws_eip" "eip_glue_nat_gateway" {
 # nat gateway
 resource "aws_nat_gateway" "glue_nat_gateway" {
   allocation_id = aws_eip.eip_glue_nat_gateway.id
-  subnet_id     = aws_subnet.redshift-subnet-az4.id
+  subnet_id     = aws_subnet.redshift-subnet-az1.id
 }
 
 # igw
