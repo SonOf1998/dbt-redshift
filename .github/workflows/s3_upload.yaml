@@ -38,3 +38,8 @@ jobs:
           rm tickit_data.zip
           aws s3 cp . s3://mkis-redshift-app-eu-central-1/raw_data --recursive
 
+      - name: Move scripts
+        run: |
+          cd etl
+          aws s3 cp . s3://mkis-redshift-app-eu-central-1/etl --recursive
+
