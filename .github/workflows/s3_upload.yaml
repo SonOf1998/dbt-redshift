@@ -1,4 +1,4 @@
-name: Upload TICKIT data to S3
+name: Upload TICKIT resources to S3
 
 on:
   workflow_dispatch:
