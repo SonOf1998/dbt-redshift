@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: tickit_source_tables
+    database: mkis_test
+    schema: tickit_raw
+    tables:
+      - name: category
+        columns:
+          - name: catid
+            tests:
+              - unique
+              - not_null
+        loaded_at_field: ingestion_timestamp
+        freshness:
+          warn_after: {count: 3, period: hour}
+          error_after: {count: 24, period: hour}
+      - name: date
+      - name: event
+      - name: listing
+      - name: sale
+      - name: user
+      - name: venue
