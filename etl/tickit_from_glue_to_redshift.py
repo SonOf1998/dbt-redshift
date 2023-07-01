@@ -36,10 +36,11 @@ for table in args["tables"].replace(" ", "").split(","):
     schema_ddl = double_pattern.sub("DOUBLE PRECISION", schema_ddl)
     schema_ddl = float_pattern.sub("REAL", schema_ddl)
     
-    schema_ddl += ", ingestion_timestamp VARCHAR"
+    schema_ddl += ", ingestion_timestamp TIMESTAMP"
     print(schema_ddl)
 
     dataframe = dataframe.withColumn("ingestion_timestamp", current_timestamp())
+    dataframe.printSchema()
     output_dynamic_frame = DynamicFrame.fromDF(dataframe, glueContext, "output_dynamic_frame")
     
     glueContext.write_dynamic_frame.from_options(
