@@ -36,7 +36,7 @@ for table in args["tables"].replace(" ", "").split(","):
     schema_ddl = double_pattern.sub("DOUBLE PRECISION", schema_ddl)
     schema_ddl = float_pattern.sub("REAL", schema_ddl)
     
-    schema_ddl += ",ingestion_timestamp TIMESTAMP"
+    schema_ddl += ", ingestion_timestamp VARCHAR"
     print(schema_ddl)
 
     dataframe = dataframe.withColumn("ingestion_timestamp", current_timestamp())
@@ -50,7 +50,7 @@ for table in args["tables"].replace(" ", "").split(","):
             "useConnectionProperties": "true",
             "dbtable": f"tickit_raw.{table}",
             "connectionName": "glue-redshift-connection",
-            "preactions": f"DROP TABLE IF EXISTS tickit_raw.{table}; CREATE TABLE tickit_raw.{table} ({schema_ddl});",
+            "preactions": f"DROP TABLE IF EXISTS tickit_raw.{table} CASCADE; CREATE TABLE tickit_raw.{table} ({schema_ddl});",
             "aws_iam_user": "arn:aws:iam::102606406933:role/glue-role",
         },
         transformation_ctx="load",
